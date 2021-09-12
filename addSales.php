@@ -13,9 +13,10 @@
   if (isset ($_POST["item"])) { // check if both form data exists
     $item = $_POST["item"]; // obtain the form item data
     $qty = $_POST["qty"]; // obtain the form quantity data
+    $price = $_POST['price'];
     $filename = "./data/sales.csv"; // assumes php file is inside lab05
     $handle = fopen($filename, "a"); // open the file in append mode
-    $data = ($item . ", " . $qty . "\n"); // concatenate item and qty delimited by comma
+    $data = ($item . ", " . $qty . ", " . $price . "\n"); // concatenate item and qty delimited by comma
     fwrite ($handle, $data); // write string to text file
     fclose($handle); // close the text file
     $handle = fopen($filename, "r"); // open the file in read mode
