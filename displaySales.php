@@ -10,8 +10,24 @@
 <body>
 	<h1>Display Sales</h1>
 	<?php
- 
+	
+		if (($sales = fopen("./data/sales.csv", "r")) !== FALSE) 
+  {
   
+	while (! feof ($sales)) {
+		$data = fgets($sales); 
+		echo "<p>", $data, "</p>"; 
+	  }
+	  fclose($sales); 
+	} else { 
+	  echo "<p>Please enter item and quantity in the add sales form.</p>";
+	}
+  
+  
+
+	
+
+	 
 	?>
 </body>
 </html>
