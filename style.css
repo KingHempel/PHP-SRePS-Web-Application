@@ -1,0 +1,133 @@
+/*
+filename: style.css
+author: MSP Group 3
+created: 14/09/2021 3:42pm
+description: CSS style sheet for Managing Software Projects, PHP-SRePS project.
+*/
+
+/* All Pages */
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background-color: #222;
+	font-family: Arial, Helvetica, sans-serif;
+	color: white;
+}
+p {
+    padding-left: 50px;
+    font-size: 20px;
+}
+
+/* Header */
+nav ul {
+	list-style-type: none; /* Removed list prefix */
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+	font-size: 1.2em; /* 1.2 times normal font-size */
+}
+nav li {
+	float: left;
+}
+nav li a {
+	display: block; /* Makes bar thicker */
+	color: white;
+	text-align: center;
+	padding: 40px 35px;
+	text-decoration: none;
+}
+nav li a:hover:not(.active) { /* Hover transition in navbar. Different color to .active */
+	background-color: #66b8ff;
+	transition: 1s;
+	color: black;
+}
+.active {
+	background-color: #8dcaff;
+	color: black;
+}
+
+h1 {
+    padding: 100px;
+	margin: 0;
+	text-align: center;
+	background-color: #555;
+	font-size: 50px;
+}
+
+/* Footer */
+.footer {
+	position: static;
+	bottom: 0; /* Stays at the bottom of the page */
+	background-color: black;
+	width: 100%; /* Covers the whole page, even when the page is resized. Does not affect footer position. */
+	margin-top: 100px; /* Plenty of space between the footer and content */
+	padding: 30px 0 30px 0;
+}
+.footer p, .footer a {
+	margin-left: 0;
+	margin-right: 0;
+	padding: 0;
+	display: inline-block;
+	width: 33%; /* Each footer paragraph is evenly spaced */
+	color: white;
+	font-size: 20px;
+	text-decoration: none;
+	text-align: center;
+}
+.footer a:hover { /* Anchor hover */
+	color: #777;
+	transition: 0.5s;
+}
+footer p:first-child { /* First paragraph */
+	float: left;
+}
+footer p:nth-child(2) { /* Second paragraph */		/* Learned this from lab04 */
+	text-align: center;
+}
+footer p:last-child { /* Third paragraph */
+	float: right;
+	text-align: right;
+}
+
+/* Forms */
+label {
+    display: inline-block;
+    width: 120px;
+    clear: both;
+}
+form {
+	padding: 50px 150px 50px 150px;
+}
+input[type=text], select, textarea { /* Group selector */
+	border: 3px solid #aaa;
+	border-radius: 5px;
+	display: inline-block;
+	box-sizing: border-box;
+	width: 250px;
+	padding: 12px 20px;
+	margin: 8px 0;
+	transition: 0.5s; /* For focus */
+	background-color: #ccc;
+}
+input[type=submit], input[type=reset], .button {
+	display: inline-block;
+    border: 3px solid #777;
+	border-radius: 5px;
+	color: white;
+	background-color: #555;
+	text-decoration: none;
+	padding: 20px;
+	transition: 0.5s;
+	width: 150px;
+	font-size: 15px;
+}
+input[type=text]:focus, select:focus, textarea:focus { /* Light blue border when field is selected */
+	border: 3px solid #66b8ff;
+	outline: 0; /* Removes default outline on other browsers */
+}
+input[type=submit]:hover, input[type=reset]:hover, .button:hover { /* Hover transition */
+	background-color: #333;
+	border-color: #555;
+}

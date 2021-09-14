@@ -4,9 +4,9 @@
 	<meta charset="utf-8" />
   	<meta name="description" content="Managing Software Projects" />
   	<meta name="author" content="Charlie Sargeant, Ed Sargeant, Jack Swanton, Kelvin Fu, Riley Hempel" />
-	
-	<link href="style.css" rel="stylesheet" type="text/css" />
 
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	
 	<title>PHP-SRePS</title>
 </head>
 
@@ -19,11 +19,20 @@
 
 	<h1>Display Sales</h1>
 	
-	<form action = "displaySalesProcess.php" method = "post" >
-	<br />
-	<input type="submit" value="Display">
+	<?php
 	
-	</form>	
+		if (($sales = fopen("./data/sales.csv", "r")) !== FALSE) 
+  {
+  
+	while (! feof ($sales)) {
+		$data = fgets($sales); 
+		echo "<p>", $data, "</p>"; 
+	  }
+	  fclose($sales); 
+	} else { 
+	  echo "<p>Please enter item and quantity in the add sales form.</p>";
+	}	 
+	?>
 
 	<!-- FOOTER -->
 	<?php

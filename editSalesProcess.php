@@ -11,15 +11,14 @@
 </head>
 
 <body>
-	<!-- HEADER -->
+    <!-- HEADER -->
 	<?php
 	$page = 'edit';
 	include_once("includes/header.inc");
-	?>
+	?>    
+    <h1>Edit Sales</h1>
 
-	<h1>Edit Sales</h1>
-	
-	<!-- FOOTER -->
+    <!-- FOOTER -->
 	<?php
 	include_once("includes/footer.inc");
 	?>
