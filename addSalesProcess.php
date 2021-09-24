@@ -40,7 +40,7 @@
 				{
 					$id = count(file($filename)) + 1;
 				}
-    		$data = ($id . ", " .$item . ", " . $qty . ", " . $price . "\n"); // concatenate item and qty delimited by comma
+    		$data = ($id . "," .$item . "," . $qty . "," . $price . "\n"); // concatenate item and qty delimited by comma
 		    fwrite ($handle, $data); // write string to text file
 		    fclose($handle); // close the text file
 		    $handle = fopen($filename, "r"); // open the file in read mode

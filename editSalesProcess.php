@@ -19,39 +19,51 @@
 
 	<h1>Edit Sales</h1>
 	<?php
-	if (isset ($_POST["editItem"])) { // check if both form data exists
+		$filename = "./data/sales.csv";
+		if (isset ($_POST["editItem"])) { // check if both form data exists
+		$lineID = $_POST["LineID"];	//obtain id of sale to be edited
 		$editItem = $_POST["editItem"]; // obtain the form item data
 		$editQty = $_POST["editQty"]; // obtain the form quantity data
-		$editPrice = $_POST['editPrice'];
-		$filename = "./data/sales.csv"; // assumes php file is inside lab05
-		$handle = fopen($filename, "a"); // open the file in append mode
-		$data = ($id . ", " .$item . ", " . $qty . ", " . $price . "\n"); // concatenate item and qty delimited by comma
-		fwrite ($handle, $data); // write string to text file
-		fclose($handle); // close the text file
+		$editPrice = $_POST['editPrice']; // obtain the form price data
+		
+
+		$alldata = array();	//create array. This will contain all the data
 		$handle = fopen($filename, "r"); // open the file in read mode
 		while (! feof ($handle)) { // loop while not end of file
 			$data = fgets($handle); // read a line from the text file
-			$data_arr = explode (",", $data);
-			if (isset($data_arr[0]))
-			{
-				echo "<tr><td>" . $data_arr[0] . "</td>";
-			}
-			if (isset($data_arr[1]))
-			{
-				echo "<td>" . $data_arr[1] . "</td>"; // generate HTML output of the data
-			}
-			if (isset($data_arr[2]))
-			{
-				echo "<td>" . $data_arr[2] . "</td>"; // generate HTML output of the data
-			}
-			if (isset($data_arr[3]))
-			{
-				echo "<td>" . $data_arr[3] . "</td></tr>"; // generate HTML output of the data
+			if ($data != "") {
+				$data2 = explode(",", $data);
+				$alldata[] = $data2;	//Fills the array with data
 			}
 		}
 		fclose($handle); // close the text file
+		foreach ($alldata as $key =>$data) {	//Foreach data entry,
+			if ($data[0] == $lineID){			//check if the ID matches user input
+				if ($editItem != ""){			//if yes, and the data fields aren't empty
+					$data[1] = trim($editItem);	//update data
+				}
+				if ($editQty != ""){
+					$data[2] = trim($editQty);
+				}
+				if ($editPrice != ""){
+					$data[3] = trim($editPrice);
+				}
+				$alldata[$key] = $data;
+			}
+			
+		}
+		unlink($filename);						//Deletes CSV file
+												//So it can be rewritten with correct data
+		$handle = fopen($filename, "a"); 		//open the file in append mode. Should create the CSV file as it has been deleted.
+		foreach ($alldata as $d) {		 		//Write all the data into the CSV
+			echo "<br>";
+			$writedata = (trim($d[0]) . "," . trim($d[1]) . "," . trim($d[2]) . "," . trim($d[3]) . "\n"); // concatenate item and qty delimited by comma
+			fwrite ($handle, $writedata); // write string to text file
+		}
+		fclose($handle); // close the text file
+		echo"<p>Data Saved Successfully</p>";
 	} else { // no input
-		echo "<p>Please enter item and quantity in the add sales form.</p>";
+		echo "<p>No Input.</p>";
 	}
 	?>
 
