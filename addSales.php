@@ -4,9 +4,9 @@
 	<meta charset="utf-8" />
   <meta name="description" content="Managing Software Projects" />
   <meta name="author" content="Charlie Sargeant, Ed Sargeant, Jack Swanton, Kelvin Fu, Riley Hempel" />
-  
+
   <link href="style.css" rel="stylesheet" type="text/css" />
-  
+
   <title>PHP-SRePS</title>
 </head>
 
@@ -18,7 +18,7 @@
   ?>
 
 	<h1>Add Sales</h1>
-
+	<div>
   <!-- FORM -->
     <form action = "addSalesProcess.php" method = "post" >
       <label for="item">Item:</label>
@@ -32,7 +32,7 @@
       <br />
       <input type="submit" value="Submit">
     </form>
-
+	</div>
     <!-- FOOTER -->
     <?php
     include_once("includes/footer.inc");

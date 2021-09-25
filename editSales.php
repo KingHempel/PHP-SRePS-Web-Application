@@ -16,7 +16,8 @@
 	$page = 'edit';
 	include_once("includes/header.inc");
 	?>
-
+	<h1>Edit Sales</h1>
+	<div>
 	<table>
 		<thead>
 			<tr>
@@ -28,27 +29,26 @@
 		</thead>
 		<tbody>
 	<?php
-		if (($sales = fopen("./data/sales.csv", "r")) !== FALSE)
-  {
-	while (! feof ($sales)) {
-		$data = fgets($sales);
-		$data_arr = explode (",", $data);
-		if (isset($data_arr[0]))
-		{
-			echo "<tr><td>" . $data_arr[0] . "</td>";
-		}
-		if (isset($data_arr[1]))
-		{
-			echo "<td>" . $data_arr[1] . "</td>"; // generate HTML output of the data
-		}
-		if (isset($data_arr[2]))
-		{
-			echo "<td>" . $data_arr[2] . "</td>"; // generate HTML output of the data
-		}
-		if (isset($data_arr[3]))
-		{
-			echo "<td>" . $data_arr[3] . "</td></tr>"; // generate HTML output of the data
-		}
+	if (($sales = fopen("./data/sales.csv", "r")) !== FALSE)
+	{
+		while (! feof ($sales)) {
+			$data = fgets($sales);
+			$data_arr = explode (",", $data);
+			if (!empty($data_arr[0])) {
+				if (isset($data_arr[0]))
+				{
+					echo "<tr><td>" . $data_arr[0] . "</td>";
+				}
+				if (isset($data_arr[1])){
+					echo "<td>" . $data_arr[1] . "</td>"; // generate HTML output of the data
+				}
+				if (isset($data_arr[2])){
+					echo "<td>" . $data_arr[2] . "</td>"; // generate HTML output of the data
+				}
+				if (isset($data_arr[3])){
+					echo "<td>" . $data_arr[3] . "</td></tr>"; // generate HTML output of the data
+				}
+			}
 	  }
 	  fclose($sales);
 	} else {
@@ -74,7 +74,7 @@
 	<br />
 	<input type="submit" value="Submit">
 </form>
-
+</div>
 	<!-- FOOTER -->
 	<?php
 	include_once("includes/footer.inc");

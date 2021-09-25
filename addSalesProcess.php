@@ -43,28 +43,7 @@
     		$data = ($id . "," .$item . "," . $qty . "," . $price . "\n"); // concatenate item and qty delimited by comma
 		    fwrite ($handle, $data); // write string to text file
 		    fclose($handle); // close the text file
-		    $handle = fopen($filename, "r"); // open the file in read mode
-		    while (! feof ($handle)) { // loop while not end of file
-					$data = fgets($handle); // read a line from the text file
-					$data_arr = explode (",", $data);
-					if (isset($data_arr[0]))
-					{
-						echo "<tr><td>" . $data_arr[0] . "</td>";
-					}
-					if (isset($data_arr[1]))
-					{
-						echo "<td>" . $data_arr[1] . "</td>"; // generate HTML output of the data
-					}
-					if (isset($data_arr[2]))
-					{
-						echo "<td>" . $data_arr[2] . "</td>"; // generate HTML output of the data
-					}
-					if (isset($data_arr[3]))
-					{
-						echo "<td>" . $data_arr[3] . "</td></tr>"; // generate HTML output of the data
-					}
-				}
-		    fclose($handle); // close the text file
+		    header("location: displaySales.php");
 		  } else { // no input
 		    echo "<p>Please enter item and quantity in the add sales form.</p>";
 		  }
