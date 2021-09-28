@@ -11,14 +11,14 @@
 
 	var errMsg = "";
 		var result = true;
-		
+
 		if (errMsg != ""){
 			alert(errMsg);
 		}
-	
+
 		var item = document.getElementById("item").value;
 
-		if (!item.match(/^[a-zA-Z]+$/)){
+		if (!item.match(/^[a-zA-Z\s]+$/)){
 			errMsg = errMsg + "Your first name must only contain alpha characters\n";
 			result = false;
 		}
@@ -36,7 +36,7 @@
 			errMsg = errMsg + "Your price must be a number\n";
 			result = false;
 		}
-	
+
 	return result;
  }
 

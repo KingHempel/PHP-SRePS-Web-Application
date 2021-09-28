@@ -26,7 +26,7 @@
         <p> Our email address is info@PHP-SRePS.com </p>
         <br />
         <p> Our Mobile Number is 03 9837 1425 </p>
-
+	</div>
   <!-- FOOTER -->
   <?php
   include_once("includes/footer.inc");
