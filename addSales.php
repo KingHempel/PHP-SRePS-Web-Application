@@ -31,6 +31,8 @@
       <label for="price">Price:</label>
       <input type="text" id="price" name="price" required="required">
       <br />
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" value=<?php echo date('Y-m-d'); ?>><br/>
       <input type="submit" value="Submit">
     </form>
 	</div>

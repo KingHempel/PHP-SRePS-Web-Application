@@ -25,6 +25,7 @@
 				<th scope="col">Item</th>
 				<th scope="col">Quantity</th>
 				<th scope="col">Price</th>
+				<th scope="col">Date</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -46,7 +47,10 @@
 					echo "<td>" . $data_arr[2] . "</td>"; // generate HTML output of the data
 				}
 				if (isset($data_arr[3])){
-					echo "<td>" . $data_arr[3] . "</td></tr>"; // generate HTML output of the data
+					echo "<td>" . $data_arr[3] . "</td>"; // generate HTML output of the data
+				}
+				if (isset($data_arr[4])){
+					echo "<td>" . $data_arr[4] . "</td></tr>"; // generate HTML output of the data
 				}
 			}
 	  }
@@ -71,6 +75,9 @@
 	<br />
 	<label for="editPrice">New Price:</label>
 	<input type="text" id="editPrice" name="editPrice">
+	<br />
+	<label for="editDate">New Date:</label>
+	<input type="date" id="editDate" name="editDate">
 	<br />
 	<input type="submit" value="Submit">
 </form>

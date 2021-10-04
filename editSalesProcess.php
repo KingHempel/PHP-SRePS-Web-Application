@@ -25,6 +25,7 @@
 		$editItem = $_POST["editItem"]; // obtain the form item data
 		$editQty = $_POST["editQty"]; // obtain the form quantity data
 		$editPrice = $_POST['editPrice']; // obtain the form price data
+		$editDate = $_POST['editDate']; // obtain the form date data
 		
 
 		$alldata = array();	//create array. This will contain all the data
@@ -48,6 +49,9 @@
 				if ($editPrice != ""){
 					$data[3] = trim($editPrice);
 				}
+				if ($editDate != ""){
+					$data[4] = trim($editDate);
+				}
 				$alldata[$key] = $data;
 			}
 			
@@ -57,7 +61,7 @@
 		$handle = fopen($filename, "a"); 		//open the file in append mode. Should create the CSV file as it has been deleted.
 		foreach ($alldata as $d) {		 		//Write all the data into the CSV
 			echo "<br>";
-			$writedata = (trim($d[0]) . "," . trim($d[1]) . "," . trim($d[2]) . "," . trim($d[3]) . "\n"); // concatenate item and qty delimited by comma
+			$writedata = (trim($d[0]) . "," . trim($d[1]) . "," . trim($d[2]) . "," . trim($d[3]) . "," . trim($d[4]) . "\n"); // concatenate item and qty delimited by comma
 			fwrite ($handle, $writedata); // write string to text file
 		}
 		fclose($handle); // close the text file

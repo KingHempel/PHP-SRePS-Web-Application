@@ -19,7 +19,7 @@
 
   <h1>PHP-SRePS</h1>
 	<div>
-		<p>Group 3</div>
+		<p>Lab 3 - Group 3</p></div>
 	</div>
   <!-- FOOTER -->
   <?php
