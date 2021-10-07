@@ -24,16 +24,17 @@
     <form id= "addsales" action = "addSalesProcess.php" method = "post">
       <label for="item">Item:</label>
       <input type="text" id="item" name="item" required="required">
-      <br />
+			<br />
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" value=<?php echo date('Y-m-d'); ?>>
+			<br />
       <label for="qty">Quantity:</label>
       <input type="text" id="qty" name="qty" required="required">
       <br />
-      <label for="price">Price:</label>
-      <input type="text" id="price" name="price" required="required">
-      <br />
-      <label for="date">Date:</label>
-      <input type="date" id="date" name="date" value=<?php echo date('Y-m-d'); ?>><br/>
-      <input type="submit" value="Submit">
+      <label for="unitprice">Unit Price:</label>
+      <input type="text" id="unitprice" name="unitprice" required="required">
+			<br />
+			<input type="submit" value="Submit">
     </form>
 	</div>
     <!-- FOOTER -->
