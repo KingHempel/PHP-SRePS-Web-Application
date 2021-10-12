@@ -18,62 +18,46 @@
   ?>
 
 	<h1>Edit Sales</h1>
-	<?php
-		$filename = "./data/sales.csv";
-		if ($_POST["LineID"] != "") { // check if ID form data exists
-		$lineID = $_POST["LineID"];	//obtain id of sale to be edited
-		$editItem = $_POST["editItem"]; // obtain the form item data
-		$editDate = $_POST['editDate']; // obtain the form date data
-		$editQty = $_POST["editQty"]; // obtain the form quantity data
-		$editUnitPrice = $_POST['editUnitPrice']; // obtain the form price data
+	<div>
+		<?php
+			if ($_POST["LineID"] != "") { // check if ID form data exists
+				$lineID = $_POST["LineID"];	//obtain id of sale to be edited
+				$editItem = $_POST["editItem"]; // obtain the form item data
+				$editDate = $_POST['editDate']; // obtain the form date data
+				$editQty = $_POST["editQty"]; // obtain the form quantity data
+				$editUnitPrice = $_POST['editUnitPrice']; // obtain the form price data
 
+				include_once("includes/opendatabase.inc");
 
-		$alldata = array();	//create array. This will contain all the data
-		$handle = fopen($filename, "r"); // open the file in read mode
-		while (! feof ($handle)) { // loop while not end of file
-			$data = fgets($handle); // read a line from the text file
-			if ($data != "") {
-				$data2 = explode(",", $data);
-				$alldata[] = $data2;	//Fills the array with data
-			}
-		}
-		fclose($handle); // close the text file
-		foreach ($alldata as $key =>$data) {	//Foreach data entry,
-			if ($data[0] == $lineID){			//check if the ID matches user input
-				if ($editItem != ""){			//if yes, and the data fields aren't empty
-					$data[1] = trim($editItem);	//update data
+				$res = $db -> query("SELECT * FROM sales WHERE id=$lineID");
+				$row = $res -> fetch();
+
+				if ($editItem != ""){	//if yes, and the data fields aren't empty
+					$row['Item'] = trim($editItem);	//update data
 				}
 				if ($editDate != ""){
-					$data[2] = trim($editDate);
+					$row['Date'] = trim($editDate);
 				}
 				if ($editQty != ""){
-					$data[3] = trim($editQty);
+					$row['Quantity'] = trim($editQty);
 				}
 				if ($editUnitPrice != ""){
-					$data[4] = trim($editUnitPrice);
+					$row['UnitPrice'] = trim($editUnitPrice);
 				}
-				if ($editQty != "" || $editUnitPrice != "")
-				{
-					$data[5] = $data[3] * $data[4];
+				if ($editQty != "" || $editUnitPrice != ""){
+					$row['TotalPrice'] = $row['UnitPrice'] * $row['Quantity'];
 				}
-				$alldata[$key] = $data;
-			}
 
-		}
-		unlink($filename);						//Deletes CSV file
-												//So it can be rewritten with correct data
-		$handle = fopen($filename, "a"); 		//open the file in append mode. Should create the CSV file as it has been deleted.
-		foreach ($alldata as $d) {		 		//Write all the data into the CSV
-			echo "<br>";
-			$writedata = (trim($d[0]) . "," . trim($d[1]) . "," . trim($d[2]) . "," . trim($d[3]) . "," . trim($d[4]) . "," . trim($d[5]) . "\n"); // concatenate item and qty delimited by comma
-			fwrite ($handle, $writedata); // write string to text file
-		}
-		fclose($handle); // close the text file
-		echo"<p>Data Saved Successfully</p>";
-	} else { // no input
-		echo "<p>No Input.</p>";
-	}
-	?>
+				$sql = "UPDATE sales SET Item=?, Date=?, Quantity=?, UnitPrice=?, TotalPrice=? WHERE id=$lineID";
+				$db->prepare($sql)->execute([$row['Item'], $row['Date'], $row['Quantity'], $row['UnitPrice'], $row['TotalPrice']]);
+
+				header("location: editSales.php");
+			}
+			else {
+				echo "<p>No Input.</p>";
+			}
+		?>
+	</div>
 
   <!-- FOOTER -->
   <?php

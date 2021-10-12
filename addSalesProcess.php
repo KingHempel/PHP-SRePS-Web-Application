@@ -18,27 +18,23 @@
   ?>
 
 	<h1>Add Sales</h1>
-	<?php
-  if (isset ($_POST["item"])) { // check if both form data exists
-		$item = $_POST["item"]; // obtain the form item data
-		$date = $_POST['date'];
-    $qty = $_POST["qty"]; // obtain the form quantity data
-    $unitprice = $_POST['unitprice'];
+	<div>
+		<?php
+	  if (isset ($_POST["item"]) && isset ($_POST["date"]) && isset ($_POST["qty"]) && isset ($_POST["unitprice"])) { // check if form data exists
+			$item = $_POST["item"]; // obtain the form item data
+			$date = $_POST['date']; // obtain the form date data
+	    $qty = $_POST["qty"]; // obtain the form quantity data
+	    $unitprice = $_POST['unitprice']; // obtain the form unitprice data
 
-    $filename = "./data/sales.csv"; // assumes php file is inside lab05
-    $handle = fopen($filename, "a"); // open the file in append mode
-		if ($handle)
-		{
-			$id = count(file($filename)) + 1;
-		}
-		$data = ($id . "," .$item . "," . $date . "," . $qty . "," . $unitprice . "," . ($unitprice * $qty) . "\n"); // concatenate item and qty delimited by comma
-    fwrite ($handle, $data); // write string to text file
-    fclose($handle); // close the text file
-    header("location: displaySales.php");
-  } else { // no input
-    echo "<p>Please enter item and quantity in the add sales form.</p>";
-  }
-	?>
+			include_once("includes/opendatabase.inc");
+			$sql = "INSERT INTO sales (Item, Date, Quantity, UnitPrice, TotalPrice) VALUES (?,?,?,?,?)";
+		  $db->prepare($sql)->execute([$item, $date, $qty, $unitprice, ($unitprice * $qty)]);
+			header("location: displaySales.php");
+	  } else { // no input
+	    echo "<p>Please input values into all fields in the form.</p>";
+	  }
+		?>
+	</div>
   <!-- FOOTER -->
   <?php
   include_once("includes/footer.inc");

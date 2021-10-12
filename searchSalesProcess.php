@@ -32,47 +32,45 @@
 	  </thead>
 	  <tbody>
 	<?php
-		$filename = "./data/sales.csv";
+	$lineID = trim($_POST["LineID"]);	//obtain id of sale to be searched
+	$searchItem = trim($_POST["searchItem"]); // obtain the form item data
+	$searchDate = $_POST['searchDate']; // obtain the form date data
+	$searchQty = trim($_POST["searchQty"]); // obtain the form quantity data
+	$searchUnitPrice = trim($_POST['searchUnitPrice']); // obtain the form price data
+	$searchTotalPrice = trim($_POST['searchTotalPrice']); // obtain the form total price data
 
-		$lineID = $_POST["LineID"];	//obtain id of sale to be searched
-		$searchItem = $_POST["searchItem"]; // obtain the form item data
-		$searchDate = $_POST['searchDate']; // obtain the form date data
-		$searchQty = $_POST["searchQty"]; // obtain the form quantity data
-		$searchUnitPrice = $_POST['searchUnitPrice']; // obtain the form price data
-		$searchTotalPrice = $_POST['searchTotalPrice']; // obtain the form total price data
+	$sql = "SELECT * FROM sales";
 
+	$queries = array();
+	if ($lineID != "") {
+		$queries[] = "ID LIKE $lineID";
+	}
+	if ($searchItem != "") {
+		$queries[] = "Item LIKE '%$searchItem%'";
+	}
+	if ($searchDate != "") {
+		$queries[] = "Date LIKE '$searchDate'";
+	}
+	if ($searchQty != "") {
+		$queries[] = "Quantity LIKE $searchQty";
+	}
+	if ($searchUnitPrice != "") {
+		$queries[] = "UnitPrice LIKE $searchUnitPrice";
+	}
+	if ($searchTotalPrice != "") {
+		$queries[] = "TotalPrice LIKE $searchTotalPrice";
+	}
+	$query = implode(" AND ", $queries);
 
-		$alldata = array();	//create array. This will contain all the data
-		$handle = fopen($filename, "r"); // open the file in read mode
-		while (! feof ($handle)) { // loop while not end of file
-			$data = fgets($handle); // read a line from the text file
-			if ($data != "") {
-				$data2 = explode(",", $data);
-				$alldata[] = $data2;	//Fills the array with data
-			}
-		}
-		fclose($handle); // close the text file
-		foreach ($alldata as $key =>$data) {	//Foreach data entry,
-			if ($data[0] == $lineID || $lineID == null){			//check if the ID matches user input
-				if ($data[1] == $searchItem || $searchItem == null){			//if yes, and the data fields aren't empty
-					if ($data[2] == $searchDate || $searchDate == null){
-						if ($data[3] == $searchQty || $searchQty == null){
-							if ($data[4] == $searchUnitPrice || $searchUnitPrice == null){
-								if ($data[5] == $searchTotalPrice || $searchTotalPrice == null){
-									echo "<tr><td>" . $data[0] . "</td>
-									<td>" . $data[1] . "</td>
-									<td>" . date("d/m/Y", strtotime($data[2])) . "</td>
-									<td>" . $data[3] . "</td>
-									<td>" . "$" . $data[4] . "</td>
-									<td>" . "$" . $data[5] . "</td></tr>";
-								}
-							}
-						}
-					}
-				}
-			}
-			$alldata[$key] = $data;
-		}
+	if ($query != "") {
+		$sql = $sql . " WHERE " . $query;
+	}
+
+	include_once("includes/opendatabase.inc");
+	$res = $db -> query($sql);
+	foreach ($res as $row) {
+		echo '<tr><td>' . $row['ID'] . '</td><td>' . $row['Item'] . '</td><td>' . date("d/m/Y", strtotime($row['Date'])) . '</td><td>' . $row['Quantity'] . '</td><td>' . '$' . $row['UnitPrice'] . '</td><td>' . '$' . $row['TotalPrice'] . '</td></tr>';
+	}
 	?>
 		</tbody>
 	</table>

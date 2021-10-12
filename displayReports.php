@@ -13,6 +13,7 @@
 <body>
 	<!-- HEADER -->
 	<?php
+	$page = 'salesreport';
 	include_once("includes/header.inc");
 	?>
 	<h1>Sales Report</h1>
@@ -29,7 +30,7 @@
 		include_once("includes/displaytable.inc");
 		?>
 	</div>
-	
+
 	<!-- FOOTER -->
 	<?php
 	include_once("includes/footer.inc");
