@@ -27,8 +27,13 @@
 					<th scope="col">Total Sales</th>
 				</tr>
 			</thead>
+			<div>
+					<form method='post' action='download.php'>
+					 <input type='submit' value='Export' name='Export'>
+			</div>
 			<tbody>
 				<?php
+				 	$report_arr = array();
 					include_once("includes/opendatabase.inc");
 
 					$res = $db -> query("SELECT strftime('%Y', date) AS 'year',
@@ -52,11 +57,17 @@
 					order by strftime('%Y/%m', date)");
 
 					foreach ($res as $row) {
-						echo '<tr><td>' . $row['year'] . '</td><td>' . $row['month'] . '</td><td>' . '$' . $row['totalsales'] . '</td></tr>';
+						echo '<tr><td>' . $row['year'] . '</td><td>' . $row['year'] . '</td><td>' . '$' . $row['year'] . '</td></tr>';
 					}
+					$report_arr[] = array($row['year'],$row['year'],$row['year']);
 				?>
 		</tbody>
 	</table>
+
+	<?php 
+    $serialize_report_arr = serialize($report_arr);
+   ?>
+   <textarea name='export_data' style='display: none;'><?php echo $serialize_report_arr; ?></textarea>
 </div>
 
   <!-- FOOTER -->
