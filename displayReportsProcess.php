@@ -17,25 +17,47 @@
   include_once("includes/header.inc");
   ?>
 
-	<h1>Edit Sales</h1>
+	<h1>Sales Report</h1>
 	<div>
-		<?php
-				if (isset ($_POST["item"]) && isset ($_POST["date"]) && isset ($_POST["qty"]) && isset ($_POST["unitprice"])) { // check if form data exists
-                    $item = $_POST["item"]; // obtain the form item data
-                    $date = $_POST['date']; // obtain the form date data
-                $qty = $_POST["qty"]; // obtain the form quantity data
-                $unitprice = $_POST['unitprice']; // obtain the form unitprice data
-        
-                    include_once("includes/opendatabase.inc");
-                    $sql = "SELECT MONTH(date) AS 'month', SUM(unitprice * qty) AS 'Total Sales' FROM sales group by month(date) order by month(date)";
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">Year</th>
+					<th scope="col">Month</th>
+					<th scope="col">Total Sales</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+					include_once("includes/opendatabase.inc");
 
-                    header("location: displayReports.php");
-              } else { // no input
-                echo "<p>Please input sales first.</p>";
-              }
-			
-		?>
-	</div>
+					$res = $db -> query("SELECT strftime('%Y', date) AS 'year',
+						case strftime('%m', date)
+						when '01' then 'January'
+						when '02' then 'Febuary'
+						when '03' then 'March'
+						when '04' then 'April'
+						when '05' then 'May'
+						when '06' then 'June'
+						when '07' then 'July'
+						when '08' then 'August'
+						when '09' then 'September'
+						when '10' then 'October'
+						when '11' then 'November'
+						when '12' then 'December'
+						else '' end AS 'month',
+					SUM(UnitPrice * Quantity) AS 'totalsales'
+					FROM sales
+					group by strftime('%Y/%m', date)
+					order by strftime('%Y/%m', date)");
+
+					foreach ($res as $row) {
+						echo '<tr><td>' . $row['year'] . '</td><td>' . $row['month'] . '</td><td>' . '$' . $row['totalsales'] . '</td></tr>';
+					}
+				?>
+		</tbody>
+	</table>
+</div>
 
   <!-- FOOTER -->
   <?php

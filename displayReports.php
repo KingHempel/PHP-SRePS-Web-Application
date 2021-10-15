@@ -24,11 +24,6 @@
 			<p>Generate a Monthly Report</p>
 			<input type="submit" value="Submit">
 		</form>
-
-
-		<?php
-		include_once("includes/displaytable.inc");
-		?>
 	</div>
 
 	<!-- FOOTER -->
