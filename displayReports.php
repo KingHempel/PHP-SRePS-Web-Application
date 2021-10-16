@@ -26,6 +26,24 @@
 		</form>
 	</div>
 
+	<div>
+
+    <form action = "monthlyItemSalesProcess.php" method = "post" >
+			<p>Predict Monthly Sales of an Item</p>
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+
+	<div>
+
+    <form action = "monthlyGroupSalesProcess.php" method = "post" >
+			<p>Predict Monthly Sales of a Group of Items</p>
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+
+	
+
 	<!-- FOOTER -->
 	<?php
 	include_once("includes/footer.inc");

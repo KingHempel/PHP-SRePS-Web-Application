@@ -8,6 +8,7 @@
             <li class="<?php if($page=='search'){echo 'active';}?>"><a href="searchSales.php">Search Sales</a></li>
             <li class="<?php if($page=='salesreport'){echo 'active';}?>"><a href="displayReports.php">Sales Reports</a></li>
             <li class="<?php if($page=='about'){echo 'active';}?>"><a href="aboutUs.php">About Us</a></li>
+	    <li class="<?php if($page=='manual'){echo 'active';}?>"><a href="manual.php">Manual</a></li>
         </ul>
     </nav>
 </header>
