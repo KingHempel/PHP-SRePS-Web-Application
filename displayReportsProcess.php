@@ -57,14 +57,14 @@
 					order by strftime('%Y/%m', date)");
 
 					foreach ($res as $row) {
-						echo '<tr><td>' . $row['year'] . '</td><td>' . $row['year'] . '</td><td>' . '$' . $row['year'] . '</td></tr>';
+						echo '<tr><td>' . $row['year'] . '</td><td>' . $row['month'] . '</td><td>' . '$' . $row['totalsales'] . '</td></tr>';
 					}
-					$report_arr[] = array($row['year'],$row['year'],$row['year']);
+					$report_arr[] = array($row['year'],$row['month'],$row['totalsales']);
 				?>
 		</tbody>
 	</table>
 
-	<?php 
+	<?php
     $serialize_report_arr = serialize($report_arr);
    ?>
    <textarea name='export_data' style='display: none;'><?php echo $serialize_report_arr; ?></textarea>
