@@ -27,10 +27,6 @@
 					<th scope="col">Total Sales</th>
 				</tr>
 			</thead>
-			<div>
-					<form method='post' action='download.php'>
-					 <input type='submit' value='Export' name='Export'>
-			</div>
 			<tbody>
 				<?php
 				 	$report_arr = array();
@@ -63,7 +59,9 @@
 				?>
 		</tbody>
 	</table>
-
+	<form method='post' action='download.php'>
+		<input type='submit' value='Export' name='Export'>
+	</form>
 	<?php
     $serialize_report_arr = serialize($report_arr);
    ?>
